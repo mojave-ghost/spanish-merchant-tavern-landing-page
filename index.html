@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Spanish Merchant's Tavern</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d1810 50%, #4a2c17 100%);
+            color: #f4e4c8;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            background: 
+                radial-gradient(circle at 30% 80%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 20%, rgba(34, 139, 34, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, #1a1a1a 0%, #2d1810 50%, #4a2c17 100%);
+        }
+
+        .title {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 1rem;
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 10px rgba(255, 215, 0, 0.3); }
+            to { text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 20px rgba(255, 215, 0, 0.6); }
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #e6d4b8;
+            margin-bottom: 3rem;
+            font-style: italic;
+        }
+
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .concept-card {
+            background: rgba(139, 69, 19, 0.3);
+            border: 2px solid #8b4513;
+            border-radius: 15px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .concept-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 215, 0, 0.1) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .concept-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .concept-card:hover {
+            transform: translateY(-5px);
+            border-color: #ffd700;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            color: #ffd700;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-content {
+            color: #e6d4b8;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        .characters-section {
+            background: rgba(139, 69, 19, 0.2);
+            padding: 4rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .character-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .character-card {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            border: 1px solid #8b4513;
+        }
+
+        .character-placeholder {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            background: linear-gradient(45deg, #8b4513, #a0522d);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #ffd700;
+        }
+
+        .journey-map {
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .map-placeholder {
+            width: 100%;
+            max-width: 800px;
+            height: 400px;
+            margin: 2rem auto;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(139, 69, 19, 0.3) 0%, transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(34, 139, 34, 0.2) 0%, transparent 30%),
+                linear-gradient(45deg, #f4e4c8 0%, #e6d4b8 100%);
+            border: 3px solid #8b4513;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #8b4513;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .location-dot {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #ffd700;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+        }
+
+        .dot1 { top: 20%; left: 45%; }
+        .dot2 { top: 15%; left: 48%; }
+        .dot3 { top: 12%; left: 47%; }
+        .dot4 { top: 35%; left: 22%; }
+        .dot5 { top: 50%; left: 18%; }
+        .dot6 { top: 70%; left: 26%; }
+        .dot7 { top: 75%; left: 28%; }
+        .dot8 { top: 55%; left: 82%; }
+        .dot9 { top: 52%; left: 42%; }
+        .dot10 { top: 58%; left: 52%; }
+        .dot11 { top: 45%; left: 47%; }
+
+        .hannah-warning {
+            background: rgba(139, 0, 0, 0.3);
+            border: 2px solid #8b0000;
+            color: #ffcccb;
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 2rem auto;
+            max-width: 600px;
+            text-align: center;
+            animation: flicker 4s infinite;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .floating-element {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #ffd700;
+            border-radius: 50%;
+            animation: float 6s infinite linear;
+            opacity: 0.6;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: #8b4513;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-elements">
+        <!-- Floating particles will be added via JavaScript -->
+    </div>
+
+    <section class="hero">
+        <h1 class="title">The Spanish Merchant's Tavern</h1>
+        <p class="subtitle">"Where culinary legends are born from tales of distant lands"</p>
+        
+        <div class="concept-grid">
+            <div class="concept-card">
+                <h3 class="card-title">🗺️ Epic Journey</h3>
+                <p class="card-content">Follow our weathered merchant through 12 locations across the Spanish Empire at its height - from Madrid's markets to the Philippines' spice islands, each stop revealing a legendary dish.</p>
+            </div>
+            
+            <div class="concept-card">
+                <h3 class="card-title">🏮 Mystical Tavern</h3>
+                <p class="card-content">A Studio Ghibli-inspired tavern where fog meets sunlight, perched at the ocean's edge. The fireplace never dies, and stories flow like wine between our merchant and his young apprentice.</p>
+            </div>
+            
+            <div class="concept-card">
+                <h3 class="card-title">💰 Haggling Tales</h3>
+                <p class="card-content">Every dish comes with the merchant's negotiation story - from 2 silver escudos to 6 reales, witness his irrepressible need to haggle even when he'll pay the asking price!</p>
+            </div>
+            
+            <div class="concept-card">
+                <h3 class="card-title">🎭 Interactive Stories</h3>
+                <p class="card-content">Click locations on our hand-drawn map to unlock dialogue between mentor and student. Watch recipes unfold as the apprentice scribbles notes and asks curious questions.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="characters-section">
+        <h2 style="text-align: center; font-size: 2.5rem; color: #ffd700; margin-bottom: 3rem;">Meet the Tavern Folk</h2>
+        
+        <div class="character-grid">
+            <div class="character-card">
+                <div class="character-placeholder">🧙‍♂️</div>
+                <h3 style="color: #ffd700; margin-bottom: 1rem;">The Merchant</h3>
+                <p>Our wise storyteller, hands weathered by trade winds and heart full of culinary adventures. Now retired, he passes on his legacy through food and tales.</p>
+            </div>
+            
+            <div class="character-card">
+                <div class="character-placeholder">👦</div>
+                <h3 style="color: #ffd700; margin-bottom: 1rem;">The Apprentice</h3>
+                <p>Wide-eyed and eager, this young soul absorbs every story, recipe, and haggling technique. His fresh notebook captures the merchant's lifetime of wisdom.</p>
+            </div>
+            
+            <div class="character-card">
+                <div class="character-placeholder">😈</div>
+                <h3 style="color: #ffd700; margin-bottom: 1rem;">Hannah Mueller</h3>
+                <p>The tavern's resident threat to all canaries. She lurks in the corner booth, sharp-eyed and dangerous. Approach at your own risk... especially if you're yellow and feathered.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="journey-map">
+        <h2 style="font-size: 2.5rem; color: #ffd700; margin-bottom: 2rem;">The Merchant's Route</h2>
+        <p style="font-size: 1.2rem; margin-bottom: 2rem; color: #e6d4b8;">Trace his footsteps across the Spanish Empire's vast reach</p>
+        
+        <div class="map-placeholder">
+            <div class="location-dot dot1"></div>
+            <div class="location-dot dot2"></div>
+            <div class="location-dot dot3"></div>
+            <div class="location-dot dot4"></div>
+            <div class="location-dot dot5"></div>
+            <div class="location-dot dot6"></div>
+            <div class="location-dot dot7"></div>
+            <div class="location-dot dot8"></div>
+            <div class="location-dot dot9"></div>
+            <div class="location-dot dot10"></div>
+            <div class="location-dot dot11"></div>
+            Interactive World Map
+            <br><small>Click locations to discover dishes & stories</small>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 2rem; font-size: 0.9rem;">
+            <div>🇪🇸 Madrid → Cocido Madrileño</div>
+            <div>🇫🇷 Franche-Comté → Coq au Vin</div>
+            <div>🇳🇱 Netherlands → Stamppot</div>
+            <div>🇬🇧 British Court → Venison Pasty</div>
+            <div>🇺🇸 Louisiana → Jambalaya</div>
+            <div>🇲🇽 Mexico → Mole Poblano</div>
+            <div>🇨🇱 Chile → Empanadas de Pino</div>
+            <div>🇦🇷 Argentina → Asado</div>
+            <div>🇵🇭 Philippines → Adobo</div>
+            <div>🇲🇦 Morocco → Tagine</div>
+            <div>🇮🇹 Sicily → Arancini</div>
+            <div>🇪🇸 Barcelona → Paella</div>
+        </div>
+    </section>
+
+    <div class="hannah-warning">
+        ⚠️ <strong>Tavern Warning:</strong> Hannah Mueller has been known to eat canary heads. Approach her corner booth with extreme caution. Management is not responsible for any bird-related incidents. ⚠️
+    </div>
+
+    <section style="padding: 4rem 2rem; text-align: center;">
+        <h2 style="font-size: 2.5rem; color: #ffd700; margin-bottom: 2rem;">The Experience</h2>
+        <div style="max-width: 800px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8; color: #e6d4b8;">
+            <p style="margin-bottom: 2rem;">
+                This isn't just a recipe website - it's a journey through time, taste, and human connection. 
+                Every dish tells a story of cultural exchange, every haggling session reveals character, 
+                and every conversation between mentor and student captures the magic of knowledge being passed down.
+            </p>
+            <p style="margin-bottom: 2rem;">
+                Built with React, animated with Framer Motion, and styled with TailwindCSS. 
+                Featuring Auth0 integration, interactive maps, character dialogue systems, 
+                and enough Easter eggs to keep Hannah Mueller busy for hours.
+            </p>
+            <p style="color: #ffd700; font-style: italic;">
+                "Come for the recipes, stay for the stories, 
+                <br>but whatever you do... don't trust Hannah with your canaries."
+            </p>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>A portfolio project by Mario • Inspired by culinary adventures and Kiki's Delivery Service ✨</p>
+    </footer>
+
+    <script>
+        // Add floating particles
+        function createFloatingElement() {
+            const element = document.createElement('div');
+            element.className = 'floating-element';
+            element.style.left = Math.random() * 100 + '%';
+            element.style.animationDelay = Math.random() * 6 + 's';
+            element.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            
+            document.querySelector('.floating-elements').appendChild(element);
+            
+            setTimeout(() => {
+                element.remove();
+            }, 8000);
+        }
+
+        // Create particles periodically
+        setInterval(createFloatingElement, 1000);
+        
+        // Create initial particles
+        for (let i = 0; i < 10; i++) {
+            setTimeout(createFloatingElement, Math.random() * 3000);
+        }
+
+        // Add hover effects to concept cards
+        document.querySelectorAll('.concept-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-5px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
