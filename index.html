@@ -26,6 +26,7 @@
             align-items: center;
             text-align: center;
             position: relative;
+            padding: 1rem;
             background: 
                 radial-gradient(circle at 30% 80%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
                 radial-gradient(circle at 70% 20%, rgba(34, 139, 34, 0.1) 0%, transparent 50%),
@@ -33,12 +34,13 @@
         }
 
         .title {
-            font-size: 4rem;
+            font-size: clamp(2rem, 8vw, 4rem);
             font-weight: bold;
             color: #ffd700;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
             margin-bottom: 1rem;
             animation: glow 3s ease-in-out infinite alternate;
+            line-height: 1.2;
         }
 
         @keyframes glow {
@@ -47,30 +49,34 @@
         }
 
         .subtitle {
-            font-size: 1.5rem;
+            font-size: clamp(1rem, 4vw, 1.5rem);
             color: #e6d4b8;
             margin-bottom: 3rem;
             font-style: italic;
+            max-width: 90%;
+            line-height: 1.4;
         }
 
         .concept-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 1rem;
+            width: 100%;
         }
 
         .concept-card {
             background: rgba(139, 69, 19, 0.3);
             border: 2px solid #8b4513;
             border-radius: 15px;
-            padding: 2rem;
+            padding: 1.5rem;
             backdrop-filter: blur(10px);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            touch-action: manipulation;
         }
 
         .concept-card::before {
@@ -85,18 +91,20 @@
             transition: transform 0.6s ease;
         }
 
-        .concept-card:hover::before {
+        .concept-card:hover::before,
+        .concept-card:active::before {
             transform: translateX(100%);
         }
 
-        .concept-card:hover {
+        .concept-card:hover,
+        .concept-card:active {
             transform: translateY(-5px);
             border-color: #ffd700;
             box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
         }
 
         .card-title {
-            font-size: 1.5rem;
+            font-size: clamp(1.2rem, 5vw, 1.5rem);
             color: #ffd700;
             margin-bottom: 1rem;
             position: relative;
@@ -108,52 +116,73 @@
             line-height: 1.6;
             position: relative;
             z-index: 1;
+            font-size: clamp(0.9rem, 3vw, 1rem);
         }
 
         .characters-section {
             background: rgba(139, 69, 19, 0.2);
-            padding: 4rem 2rem;
-            margin-top: 4rem;
+            padding: 2rem 1rem;
+            margin-top: 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(1.8rem, 6vw, 2.5rem);
+            color: #ffd700;
+            margin-bottom: 2rem;
+            line-height: 1.2;
         }
 
         .character-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            gap: 1.5rem;
             max-width: 1000px;
             margin: 0 auto;
         }
 
         .character-card {
             text-align: center;
-            padding: 2rem;
+            padding: 1.5rem;
             background: rgba(0,0,0,0.3);
             border-radius: 10px;
             border: 1px solid #8b4513;
+            touch-action: manipulation;
         }
 
         .character-placeholder {
-            width: 120px;
-            height: 120px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             margin: 0 auto 1rem;
             background: linear-gradient(45deg, #8b4513, #a0522d);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
+            font-size: 2.5rem;
             color: #ffd700;
         }
 
+        .character-card h3 {
+            color: #ffd700;
+            margin-bottom: 1rem;
+            font-size: clamp(1.1rem, 4vw, 1.3rem);
+        }
+
+        .character-card p {
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            line-height: 1.5;
+        }
+
         .journey-map {
-            padding: 4rem 2rem;
+            padding: 2rem 1rem;
             text-align: center;
         }
 
         .map-placeholder {
             width: 100%;
             max-width: 800px;
-            height: 400px;
+            height: clamp(300px, 50vw, 400px);
             margin: 2rem auto;
             background: 
                 radial-gradient(circle at 20% 30%, rgba(139, 69, 19, 0.3) 0%, transparent 30%),
@@ -164,20 +193,24 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: clamp(1rem, 4vw, 1.5rem);
             color: #8b4513;
             position: relative;
             overflow: hidden;
+            touch-action: manipulation;
+            padding: 1rem;
         }
 
         .location-dot {
             position: absolute;
-            width: 12px;
-            height: 12px;
+            width: clamp(8px, 2vw, 12px);
+            height: clamp(8px, 2vw, 12px);
             background: #ffd700;
             border-radius: 50%;
             box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
             animation: pulse 2s infinite;
+            cursor: pointer;
+            touch-action: manipulation;
         }
 
         @keyframes pulse {
@@ -197,16 +230,31 @@
         .dot10 { top: 58%; left: 52%; }
         .dot11 { top: 45%; left: 47%; }
 
+        .locations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.8rem;
+            margin-top: 2rem;
+            font-size: clamp(0.8rem, 3vw, 0.9rem);
+        }
+
+        .location-item {
+            padding: 0.5rem;
+            background: rgba(139, 69, 19, 0.2);
+            border-radius: 5px;
+            text-align: center;
+        }
+
         .hannah-warning {
             background: rgba(139, 0, 0, 0.3);
             border: 2px solid #8b0000;
             color: #ffcccb;
             padding: 1rem;
             border-radius: 10px;
-            margin: 2rem auto;
-            max-width: 600px;
+            margin: 2rem 1rem;
             text-align: center;
             animation: flicker 4s infinite;
+            font-size: clamp(0.9rem, 3vw, 1rem);
         }
 
         @keyframes flicker {
@@ -239,11 +287,89 @@
             100% { transform: translateY(-100px) rotate(360deg); }
         }
 
+        .experience-section {
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        .experience-content {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: clamp(1rem, 3vw, 1.1rem);
+            line-height: 1.8;
+            color: #e6d4b8;
+        }
+
+        .experience-content p {
+            margin-bottom: 1.5rem;
+        }
+
         .footer {
             text-align: center;
-            padding: 2rem;
+            padding: 2rem 1rem;
             color: #8b4513;
             font-style: italic;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+        }
+
+        /* Mobile-specific improvements */
+        @media (max-width: 768px) {
+            .concept-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .character-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .locations-grid {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+            
+            .hero {
+                padding: 2rem 1rem;
+            }
+            
+            .map-placeholder {
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .concept-card {
+                padding: 1rem;
+            }
+            
+            .character-card {
+                padding: 1rem;
+            }
+            
+            .character-placeholder {
+                width: 80px;
+                height: 80px;
+                font-size: 2rem;
+            }
+            
+            .map-placeholder {
+                height: 200px;
+                font-size: 1rem;
+            }
+        }
+
+        /* Touch-friendly hover states */
+        @media (hover: none) {
+            .concept-card:hover {
+                transform: none;
+                border-color: #8b4513;
+                box-shadow: none;
+            }
+            
+            .concept-card:active {
+                transform: scale(0.98);
+            }
         }
     </style>
 </head>
@@ -280,32 +406,32 @@
     </section>
 
     <section class="characters-section">
-        <h2 style="text-align: center; font-size: 2.5rem; color: #ffd700; margin-bottom: 3rem;">Meet the Tavern Folk</h2>
+        <h2 class="section-title">Meet the Tavern Folk</h2>
         
         <div class="character-grid">
             <div class="character-card">
                 <div class="character-placeholder">🧙‍♂️</div>
-                <h3 style="color: #ffd700; margin-bottom: 1rem;">The Merchant</h3>
+                <h3>The Merchant</h3>
                 <p>Our wise storyteller, hands weathered by trade winds and heart full of culinary adventures. Now retired, he passes on his legacy through food and tales.</p>
             </div>
             
             <div class="character-card">
                 <div class="character-placeholder">👦</div>
-                <h3 style="color: #ffd700; margin-bottom: 1rem;">The Apprentice</h3>
+                <h3>The Apprentice</h3>
                 <p>Wide-eyed and eager, this young soul absorbs every story, recipe, and haggling technique. His fresh notebook captures the merchant's lifetime of wisdom.</p>
             </div>
             
             <div class="character-card">
                 <div class="character-placeholder">😈</div>
-                <h3 style="color: #ffd700; margin-bottom: 1rem;">Hannah Mueller</h3>
+                <h3>Hannah Mueller</h3>
                 <p>The tavern's resident threat to all canaries. She lurks in the corner booth, sharp-eyed and dangerous. Approach at your own risk... especially if you're yellow and feathered.</p>
             </div>
         </div>
     </section>
 
     <section class="journey-map">
-        <h2 style="font-size: 2.5rem; color: #ffd700; margin-bottom: 2rem;">The Merchant's Route</h2>
-        <p style="font-size: 1.2rem; margin-bottom: 2rem; color: #e6d4b8;">Trace his footsteps across the Spanish Empire's vast reach</p>
+        <h2 class="section-title">The Merchant's Route</h2>
+        <p style="font-size: clamp(1rem, 4vw, 1.2rem); margin-bottom: 2rem; color: #e6d4b8;">Trace his footsteps across the Spanish Empire's vast reach</p>
         
         <div class="map-placeholder">
             <div class="location-dot dot1"></div>
@@ -319,23 +445,25 @@
             <div class="location-dot dot9"></div>
             <div class="location-dot dot10"></div>
             <div class="location-dot dot11"></div>
-            Interactive World Map
-            <br><small>Click locations to discover dishes & stories</small>
+            <div style="text-align: center;">
+                Interactive World Map
+                <br><small style="font-size: 0.8em;">Tap locations to discover dishes & stories</small>
+            </div>
         </div>
         
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 2rem; font-size: 0.9rem;">
-            <div>🇪🇸 Madrid → Cocido Madrileño</div>
-            <div>🇫🇷 Franche-Comté → Coq au Vin</div>
-            <div>🇳🇱 Netherlands → Stamppot</div>
-            <div>🇬🇧 British Court → Venison Pasty</div>
-            <div>🇺🇸 Louisiana → Jambalaya</div>
-            <div>🇲🇽 Mexico → Mole Poblano</div>
-            <div>🇨🇱 Chile → Empanadas de Pino</div>
-            <div>🇦🇷 Argentina → Asado</div>
-            <div>🇵🇭 Philippines → Adobo</div>
-            <div>🇲🇦 Morocco → Tagine</div>
-            <div>🇮🇹 Sicily → Arancini</div>
-            <div>🇪🇸 Barcelona → Paella</div>
+        <div class="locations-grid">
+            <div class="location-item">🇪🇸 Madrid → Cocido Madrileño</div>
+            <div class="location-item">🇫🇷 Franche-Comté → Coq au Vin</div>
+            <div class="location-item">🇳🇱 Netherlands → Stamppot</div>
+            <div class="location-item">🇬🇧 British Court → Venison Pasty</div>
+            <div class="location-item">🇺🇸 Louisiana → Jambalaya</div>
+            <div class="location-item">🇲🇽 Mexico → Mole Poblano</div>
+            <div class="location-item">🇨🇱 Chile → Empanadas de Pino</div>
+            <div class="location-item">🇦🇷 Argentina → Asado</div>
+            <div class="location-item">🇵🇭 Philippines → Adobo</div>
+            <div class="location-item">🇲🇦 Morocco → Tagine</div>
+            <div class="location-item">🇮🇹 Sicily → Arancini</div>
+            <div class="location-item">🇪🇸 Barcelona → Paella</div>
         </div>
     </section>
 
@@ -343,15 +471,15 @@
         ⚠️ <strong>Tavern Warning:</strong> Hannah Mueller has been known to eat canary heads. Approach her corner booth with extreme caution. Management is not responsible for any bird-related incidents. ⚠️
     </div>
 
-    <section style="padding: 4rem 2rem; text-align: center;">
-        <h2 style="font-size: 2.5rem; color: #ffd700; margin-bottom: 2rem;">The Experience</h2>
-        <div style="max-width: 800px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8; color: #e6d4b8;">
-            <p style="margin-bottom: 2rem;">
+    <section class="experience-section">
+        <h2 class="section-title">The Experience</h2>
+        <div class="experience-content">
+            <p>
                 This isn't just a recipe website - it's a journey through time, taste, and human connection. 
                 Every dish tells a story of cultural exchange, every haggling session reveals character, 
                 and every conversation between mentor and student captures the magic of knowledge being passed down.
             </p>
-            <p style="margin-bottom: 2rem;">
+            <p>
                 Built with React, animated with Framer Motion, and styled with TailwindCSS. 
                 Featuring Auth0 integration, interactive maps, character dialogue systems, 
                 and enough Easter eggs to keep Hannah Mueller busy for hours.
@@ -368,7 +496,7 @@
     </footer>
 
     <script>
-        // Add floating particles
+        // Add floating particles (reduced for mobile performance)
         function createFloatingElement() {
             const element = document.createElement('div');
             element.className = 'floating-element';
@@ -383,24 +511,75 @@
             }, 8000);
         }
 
+        // Reduce particle frequency on mobile
+        const isMobile = window.innerWidth <= 768;
+        const particleInterval = isMobile ? 2000 : 1000;
+        const initialParticles = isMobile ? 5 : 10;
+
         // Create particles periodically
-        setInterval(createFloatingElement, 1000);
+        setInterval(createFloatingElement, particleInterval);
         
         // Create initial particles
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < initialParticles; i++) {
             setTimeout(createFloatingElement, Math.random() * 3000);
         }
 
-        // Add hover effects to concept cards
+        // Enhanced touch interactions for concept cards
         document.querySelectorAll('.concept-card').forEach(card => {
+            // Mouse events for desktop
             card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-5px) scale(1.02)';
+                if (window.innerWidth > 768) {
+                    card.style.transform = 'translateY(-5px) scale(1.02)';
+                }
             });
             
             card.addEventListener('mouseleave', () => {
-                card.style.transform = 'translateY(0) scale(1)';
+                if (window.innerWidth > 768) {
+                    card.style.transform = 'translateY(0) scale(1)';
+                }
+            });
+
+            // Touch events for mobile
+            card.addEventListener('touchstart', (e) => {
+                card.style.transform = 'scale(0.98)';
+            });
+
+            card.addEventListener('touchend', (e) => {
+                card.style.transform = 'scale(1)';
             });
         });
+
+        // Add touch feedback for location dots
+        document.querySelectorAll('.location-dot').forEach(dot => {
+            dot.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                dot.style.transform = 'scale(1.5)';
+                dot.style.boxShadow = '0 0 20px rgba(255, 215, 0, 1)';
+            });
+
+            dot.addEventListener('touchend', (e) => {
+                setTimeout(() => {
+                    dot.style.transform = '';
+                    dot.style.boxShadow = '';
+                }, 200);
+            });
+        });
+
+        // Optimize performance on mobile
+        if (isMobile) {
+            // Reduce animation frequency
+            const style = document.createElement('style');
+            style.textContent = `
+                .floating-element {
+                    animation-duration: 8s !important;
+                }
+                @keyframes pulse {
+                    0%, 100% { transform: scale(1); opacity: 1; }
+                    50% { transform: scale(1.1); opacity: 0.8; }
+                }
+            `;
+            document.head.appendChild(style);
+        }
     </script>
 </body>
 </html>
