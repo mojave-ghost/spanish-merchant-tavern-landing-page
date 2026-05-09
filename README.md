@@ -178,9 +178,6 @@ We welcome contributions to enhance the tavern experience! Areas for contributio
 4. Push to the branch (`git push origin feature/amazing-tavern-feature`)
 5. Open a Pull Request
 
-## 📜 License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
 
 ## 🙏 Acknowledgments
 
@@ -189,11 +186,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 - **Culinary Expertise**: Traditional recipes from featured regions
 - **Character Development**: Hannah Mueller's mysterious canary-eating tendencies
 
-## 📞 Contact
-
-**Mario** - Portfolio Project Creator
-- Inspired by culinary adventures and magical storytelling
-- Built with ❤️ and lots of Spanish coffee
 
 ---
 
